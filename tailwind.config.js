@@ -2,7 +2,9 @@
 module.exports = {
   content: [
     "./src/**/*.{html,js}",
-    "./netlify/functions/**/*.js"
+    "./src/pages/**/*.{html,js}",
+    "./src/components/**/*.{html,js}",
+    "./src/layouts/**/*.{html,js}"
   ],
   theme: {
     extend: {

@@ -3,6 +3,10 @@
 # Exit on error
 set -e
 
+echo "Creating necessary directories..."
+mkdir -p src/css
+mkdir -p dist/css
+
 echo "Installing dependencies..."
 npm install
 
