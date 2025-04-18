@@ -1,15 +1,26 @@
 [build]
   command = "npm run build"
-  publish = "public"
+  publish = "dist"
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "18.17.0"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["@supabase/supabase-js"]
+  included_files = ["supabase/**/*"]
 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+  force = true
 
-[functions]
-  node_bundler = "esbuild" 
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 
