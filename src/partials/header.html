@@ -1,0 +1,39 @@
+<header class="bg-white shadow-sm">
+    <nav class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <a href="/" class="flex items-center space-x-2">
+                <span class="text-2xl font-bold text-primary-600">PrizeDraw</span>
+            </a>
+
+            <!-- Navigation -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/competitions" class="text-gray-600 hover:text-primary-600">Competitions</a>
+                <a href="/create" class="text-gray-600 hover:text-primary-600">Create</a>
+                <a href="/dashboard" class="text-gray-600 hover:text-primary-600">Dashboard</a>
+            </div>
+
+            <!-- User Menu -->
+            <div class="flex items-center space-x-4">
+                <div hx-get="/partials/auth-menu" hx-trigger="load, auth-change from:body">
+                    <!-- Auth menu will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden" 
+                    hx-get="/partials/mobile-menu" 
+                    hx-target="#mobile-menu"
+                    hx-swap="innerHTML">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden">
+        <!-- Mobile menu will be loaded here -->
+    </div>
+</header> 

@@ -1,8 +1,44 @@
--- Insert sample users (these will be linked to auth.users)
-INSERT INTO public.profiles (id, username, full_name, avatar_url) VALUES
-    ('11111111-1111-1111-1111-111111111111', 'johndoe', 'John Doe', 'https://api.dicebear.com/7.x/avataaars/svg?seed=John'),
-    ('22222222-2222-2222-2222-222222222222', 'janedoe', 'Jane Smith', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jane'),
-    ('33333333-3333-3333-3333-333333333333', 'bobsmith', 'Bob Smith', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Bob');
+-- First, create the auth.users entries
+INSERT INTO auth.users (
+    id,
+    instance_id,
+    email,
+    encrypted_password,
+    email_confirmed_at,
+    created_at,
+    updated_at,
+    raw_user_meta_data
+) VALUES
+    (
+        '11111111-1111-1111-1111-111111111111',
+        '00000000-0000-0000-0000-000000000000',
+        'john@example.com',
+        crypt('password123', gen_salt('bf')),
+        NOW(),
+        NOW(),
+        NOW(),
+        '{"username": "johndoe", "full_name": "John Doe"}'
+    ),
+    (
+        '22222222-2222-2222-2222-222222222222',
+        '00000000-0000-0000-0000-000000000000',
+        'jane@example.com',
+        crypt('password123', gen_salt('bf')),
+        NOW(),
+        NOW(),
+        NOW(),
+        '{"username": "janedoe", "full_name": "Jane Smith"}'
+    ),
+    (
+        '33333333-3333-3333-3333-333333333333',
+        '00000000-0000-0000-0000-000000000000',
+        'bob@example.com',
+        crypt('password123', gen_salt('bf')),
+        NOW(),
+        NOW(),
+        NOW(),
+        '{"username": "bobsmith", "full_name": "Bob Smith"}'
+    );
 
 -- Insert sample competitions
 INSERT INTO public.competitions (
@@ -11,7 +47,7 @@ INSERT INTO public.competitions (
     charity_percentage, charity_name, charity_registration
 ) VALUES
     (
-        'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+        'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa',
         '11111111-1111-1111-1111-111111111111',
         'Win a PlayStation 5',
         'Enter for a chance to win a brand new PlayStation 5 console!',
@@ -28,7 +64,7 @@ INSERT INTO public.competitions (
         'GB123456'
     ),
     (
-        'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+        'bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb',
         '22222222-2222-2222-2222-222222222222',
         'Luxury Weekend Getaway',
         'Win a weekend stay at a luxury hotel in London!',
@@ -45,7 +81,7 @@ INSERT INTO public.competitions (
         'GB789012'
     ),
     (
-        'cccccccc-cccc-cccc-cccc-cccccccccccc',
+        'cccccccc-cccc-4ccc-cccc-cccccccccccc',
         '11111111-1111-1111-1111-111111111111',
         'Gourmet Cooking Experience',
         'Win a private cooking class with a Michelin-starred chef!',
@@ -68,8 +104,8 @@ INSERT INTO public.prizes (
 ) VALUES
     -- PlayStation 5 competition prizes
     (
-        'dddddddd-dddd-dddd-dddd-dddddddddddd',
-        'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+        'dddddddd-dddd-4ddd-dddd-dddddddddddd',
+        'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa',
         'PlayStation 5 Console',
         'Brand new PlayStation 5 console with DualSense controller',
         'https://example.com/ps5.jpg',
@@ -77,8 +113,8 @@ INSERT INTO public.prizes (
         1
     ),
     (
-        'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee',
-        'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+        'eeeeeeee-eeee-4eee-eeee-eeeeeeeeeeee',
+        'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa',
         'PS5 Games Bundle',
         'Collection of 5 popular PS5 games',
         'https://example.com/games.jpg',
@@ -87,8 +123,8 @@ INSERT INTO public.prizes (
     ),
     -- Luxury Weekend prizes
     (
-        'ffffffff-ffff-ffff-ffff-ffffffffffff',
-        'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+        'ffffffff-ffff-4fff-ffff-ffffffffffff',
+        'bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb',
         'Luxury Hotel Stay',
         '2-night stay in a luxury suite',
         'https://example.com/hotel.jpg',
@@ -96,8 +132,8 @@ INSERT INTO public.prizes (
         1
     ),
     (
-        'gggggggg-gggg-gggg-gggg-gggggggggggg',
-        'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+        '11111111-1111-4111-1111-111111111111',
+        'bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb',
         'Spa Treatment',
         'Full day spa experience',
         'https://example.com/spa.jpg',
@@ -106,8 +142,8 @@ INSERT INTO public.prizes (
     ),
     -- Cooking Experience prizes
     (
-        'hhhhhhhh-hhhh-hhhh-hhhh-hhhhhhhhhhhh',
-        'cccccccc-cccc-cccc-cccc-cccccccccccc',
+        '22222222-2222-4222-2222-222222222222',
+        'cccccccc-cccc-4ccc-cccc-cccccccccccc',
         'Private Cooking Class',
         '3-hour private cooking class',
         'https://example.com/cooking.jpg',
@@ -115,8 +151,8 @@ INSERT INTO public.prizes (
         1
     ),
     (
-        'iiiiiiii-iiii-iiii-iiii-iiiiiiiiiiii',
-        'cccccccc-cccc-cccc-cccc-cccccccccccc',
+        '33333333-3333-4333-3333-333333333333',
+        'cccccccc-cccc-4ccc-cccc-cccccccccccc',
         'Gourmet Dinner',
         'Dinner for two at the chef''s restaurant',
         'https://example.com/dinner.jpg',
@@ -130,8 +166,8 @@ INSERT INTO public.entries (
 ) VALUES
     -- PlayStation 5 entries
     (
-        'jjjjjjjj-jjjj-jjjj-jjjj-jjjjjjjjjjjj',
-        'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+        '44444444-4444-4444-4444-444444444444',
+        'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa',
         '22222222-2222-2222-2222-222222222222',
         'jane@example.com',
         'Paris',
@@ -140,8 +176,8 @@ INSERT INTO public.entries (
         'pi_123456789'
     ),
     (
-        'kkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk',
-        'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+        '55555555-5555-5555-5555-555555555555',
+        'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa',
         '33333333-3333-3333-3333-333333333333',
         'bob@example.com',
         'Paris',
@@ -151,8 +187,8 @@ INSERT INTO public.entries (
     ),
     -- Luxury Weekend entries
     (
-        'llllllll-llll-llll-llll-llllllllllll',
-        'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+        '66666666-6666-6666-6666-666666666666',
+        'bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb',
         '11111111-1111-1111-1111-111111111111',
         'john@example.com',
         '2007',
@@ -162,8 +198,8 @@ INSERT INTO public.entries (
     ),
     -- Cooking Experience entries
     (
-        'mmmmmmmm-mmmm-mmmm-mmmm-mmmmmmmmmmmm',
-        'cccccccc-cccc-cccc-cccc-cccccccccccc',
+        '77777777-7777-7777-7777-777777777777',
+        'cccccccc-cccc-4ccc-cccc-cccccccccccc',
         '22222222-2222-2222-2222-222222222222',
         'jane@example.com',
         'Chickpeas',
@@ -172,8 +208,8 @@ INSERT INTO public.entries (
         'pi_789123456'
     ),
     (
-        'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn',
-        'cccccccc-cccc-cccc-cccc-cccccccccccc',
+        '88888888-8888-8888-8888-888888888888',
+        'cccccccc-cccc-4ccc-cccc-cccccccccccc',
         '33333333-3333-3333-3333-333333333333',
         'bob@example.com',
         'Chickpeas',
@@ -187,15 +223,15 @@ INSERT INTO public.winners (
     id, entry_id, prize_id, position
 ) VALUES
     (
-        'oooooooo-oooo-oooo-oooo-oooooooooooo',
-        'mmmmmmmm-mmmm-mmmm-mmmm-mmmmmmmmmmmm',
-        'hhhhhhhh-hhhh-hhhh-hhhh-hhhhhhhhhhhh',
+        '99999999-9999-9999-9999-999999999999',
+        '77777777-7777-7777-7777-777777777777',
+        '22222222-2222-4222-2222-222222222222',
         1
     ),
     (
-        'pppppppp-pppp-pppp-pppp-pppppppppppp',
-        'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn',
-        'iiiiiiii-iiii-iiii-iiii-iiiiiiiiiiii',
+        'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa',
+        '88888888-8888-8888-8888-888888888888',
+        '33333333-3333-4333-3333-333333333333',
         2
     );
 
@@ -207,6 +243,6 @@ INSERT INTO public.subscribers (email) VALUES
 
 -- Insert sample competition followers
 INSERT INTO public.competition_followers (competition_id, user_id) VALUES
-    ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '22222222-2222-2222-2222-222222222222'),
-    ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', '11111111-1111-1111-1111-111111111111'),
-    ('cccccccc-cccc-cccc-cccc-cccccccccccc', '33333333-3333-3333-3333-333333333333'); 
+    ('aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa', '22222222-2222-2222-2222-222222222222'),
+    ('bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb', '11111111-1111-1111-1111-111111111111'),
+    ('cccccccc-cccc-4ccc-cccc-cccccccccccc', '33333333-3333-3333-3333-333333333333'); 

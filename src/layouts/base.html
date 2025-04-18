@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PrizeDraw{% endblock %}</title>
+    
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/loading-states.js"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <link href="/styles/main.css" rel="stylesheet">
+    
+    <!-- Custom Scripts -->
+    <script src="/js/main.js" defer></script>
+    
+    {% block head %}{% endblock %}
+</head>
+<body class="min-h-screen bg-gray-50">
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" 
+         class="fixed top-0 left-0 w-full h-1 bg-primary-500 transform -translate-x-full transition-transform duration-300"
+         hx-indicator
+         hx-ext="loading-states">
+    </div>
+
+    <!-- Header -->
+    <header hx-get="/partials/header" hx-trigger="load">
+        <!-- Header content will be loaded here -->
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer hx-get="/partials/footer" hx-trigger="load">
+        <!-- Footer content will be loaded here -->
+    </footer>
+
+    <!-- Flash Messages -->
+    <div id="flash-messages" 
+         class="fixed top-4 right-4 z-50"
+         hx-get="/partials/flash-messages" 
+         hx-trigger="load, flash from:body">
+        <!-- Flash messages will be loaded here -->
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html> 
