@@ -12,10 +12,32 @@ services:
       - NODE_ENV=development
       - SUPABASE_URL=${SUPABASE_URL}
       - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
-      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
-      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+    command: sh -c "npm install && npm run build && npm run dev"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  netlify-dev:
+    image: node:18.17.0-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - netlify_cache:/root/.netlify
+    command: sh -c "npm install -g netlify-cli && netlify dev"
+    ports:
+      - "8889:8889"
+    environment:
+      - NETLIFY_AUTH_TOKEN=${NETLIFY_AUTH_TOKEN}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - NETLIFY_SITE_ID=${NETLIFY_SITE_ID}
     depends_on:
-      - supabase
+      app:
+        condition: service_healthy
 
   supabase:
     image: supabase/postgres:15.1.0.89
@@ -29,4 +51,5 @@ services:
       - supabase_data:/var/lib/postgresql/data
 
 volumes:
-  supabase_data: 
+  supabase_data:
+  netlify_cache: 

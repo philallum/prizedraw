@@ -4,17 +4,18 @@
   "description": "A skill-based prize competition platform",
   "main": "index.js",
   "scripts": {
-    "dev": "netlify dev",
+    "dev": "npx serve dist -p 8888",
     "build": "npm run build:css && npm run build:html",
     "build:css": "tailwindcss -i ./src/css/input.css -o ./dist/css/styles.css --minify",
     "build:html": "mkdir -p dist && cp -r src/* dist/",
-    "start": "netlify dev",
+    "start": "npx serve dist -p 8888",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "alpinejs": "^3.13.3",
     "htmx.org": "^1.9.10",
+    "serve": "^14.2.1",
     "stripe": "^14.12.0"
   },
   "devDependencies": {

@@ -1,24 +1,22 @@
-FROM node:18-alpine
+FROM node:18.17.0-alpine
 
 WORKDIR /app
 
-# Install system dependencies
-RUN apk add --no-cache \
-    python3 \
-    make \
-    g++
-
-# Copy package files
-COPY package*.json ./
+# Install dependencies including curl
+RUN apk add --no-cache curl
 
 # Install dependencies
+COPY package*.json ./
 RUN npm install
 
 # Copy source code
 COPY . .
 
-# Expose port for development server
+# Build the application
+RUN npm run build
+
+# Expose port
 EXPOSE 8888
 
-# Start development server
-CMD ["npm", "run", "dev"] 
+# Start the application
+CMD ["npm", "run", "start"] 

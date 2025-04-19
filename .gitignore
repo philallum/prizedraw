@@ -35,3 +35,5 @@ yarn-error.log*
 # Docker
 .docker/
 docker-compose.override.yml 
+# Local Netlify folder
+.netlify
