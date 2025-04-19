@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx serve dist -p 8888",
-    "build": "npm run build:css && npm run build:html",
+    "build": "npm run clean && npm run build:css && npm run build:html",
+    "clean": "rm -rf dist && mkdir -p dist/css",
     "build:css": "tailwindcss -i ./src/css/input.css -o ./dist/css/styles.css --minify",
-    "build:html": "mkdir -p dist && cp -r src/* dist/",
+    "build:html": "cp -r src/* dist/ && rm -rf dist/css/input.css",
     "start": "npx serve dist -p 8888",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
